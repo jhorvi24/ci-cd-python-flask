@@ -48,6 +48,15 @@ jobs:
         aws-region: "us-east-1"
     - name: Upload the package to S3 Bucket
       run: aws s3 cp python_package.zip s3://app-python-deploy/
+    - name: Create ElasticBeanStalk application
+      run: |
+        aws elasticbeanstalk create-application-version \
+        --application-name web-python \
+        --source-bundle S3Bucket="app-python-deploy", S3Key="python_package" \
+        --version-label "ver-${{github.sha}}" \
+        --description "commit-sha-${{github.sha}}"
+    - name: Deploy to AWS EBS
+      run: aws elasticbeanstalk update-environment --environment-name web-python-env-1 --version-label "ver-${{github.sha}}"
 
 
 

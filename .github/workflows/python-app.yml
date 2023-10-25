@@ -39,7 +39,7 @@ jobs:
         export PYTHONPATH=src
         pytest
     - name: Create package for deployment
-      run: zip -r python_package.zip
+      run: zip -r python_package.zip ./
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:

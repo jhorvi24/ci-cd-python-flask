@@ -52,7 +52,7 @@ jobs:
       run: |
         aws elasticbeanstalk create-application-version \
         --application-name web-python \
-        --source-bundle S3Bucket="app-python-deploy", S3Key="python_package" \
+        --source-bundle S3Bucket="app-python-deploy", S3Key="python_package.zip" \
         --version-label "ver-${{github.sha}}" \
         --description "commit-sha-${{github.sha}}"
     - name: Deploy to AWS EBS

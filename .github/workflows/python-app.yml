@@ -39,7 +39,7 @@ jobs:
         export PYTHONPATH=.
         pytest
     - name: Create package for deployment
-      run: zip -r python_package.zip ./
+      run: zip -r python_package.zip application.py requirements.txt
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -48,15 +48,13 @@ jobs:
         aws-region: "us-east-1"
     - name: Upload the package to S3 Bucket
       run: aws s3 cp python_package.zip s3://app-python-deploy/
-    - name: Create ElasticBeanStalk application
+    - name: Install EB CLI
       run: |
-        aws elasticbeanstalk create-application-version \
-        --application-name web-python \
-        --source-bundle "S3Bucket=app-python-deploy, S3Key=python_package.zip" \
-        --version-label "ver-${{github.sha}}" \
-        --description "commit-sha-${{github.sha}}"
+        python -m pip install --upgrade pip
+        pip install awsebcli
     - name: Deploy to AWS EBS
-      run: aws elasticbeanstalk update-environment --environment-name web-python-env-1 --version-label "ver-${{github.sha}}"
+      run: |
+        eb deploy
 
 
 

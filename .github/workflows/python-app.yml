@@ -52,9 +52,14 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install awsebcli
-    - name: Deploy to AWS EBS
+    - name: Create application in AWS EBS
       run: |
-        eb deploy
+        eb init -p python-3.9 flask-python --region us-east-1
+        eb create flask-python-env
+    - name: Deploy to AWS Elasticbeanstalk
+      run: |
+        aws elasticbeanstalk create-application-version --application-name flask-python --source-bundle "S3Bucket=app-python-deploy,S3Key=python_package.zip" --version-label v1
+        aws elasticbeanstalk update-environment --environment-name python-flask-env --version-label v1
 
 
 

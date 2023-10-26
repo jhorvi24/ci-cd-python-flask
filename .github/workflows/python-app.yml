@@ -59,7 +59,7 @@ jobs:
     - name: Deploy to AWS Elasticbeanstalk
       run: |
         aws elasticbeanstalk create-application-version --application-name flask-python --source-bundle "S3Bucket=app-python-deploy,S3Key=python_package.zip" --version-label v1
-        aws elasticbeanstalk update-environment --environment-name python-flask-env --version-label v1
+        aws elasticbeanstalk update-environment --environment-name flask-python-env --version-label v1
 
 
 

@@ -5,7 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'docker build -t flask-app .'
-        sh 'docker tag flask-appp $DOCKER_PORTFOLIO_APP'
+        sh 'docker tag flask-app $DOCKER_PORTFOLIO_APP'
       }
     }
     stage('Test') {

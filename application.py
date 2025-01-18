@@ -5,7 +5,7 @@ application= app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello. This is a test of GitHub Actions!'
+    return 'Hello World!'
 
 
 

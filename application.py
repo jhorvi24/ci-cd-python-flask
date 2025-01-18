@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 
 application= app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'Hello. This is a test of GitHub Actions!'
 
 
 

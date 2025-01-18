@@ -97,28 +97,31 @@ La segunda línea trata todos los errores como advertencias (no detiene el flujo
                 run: aws s3 cp python_package.zip s3://app-python-deploy/
 
 
-9. Instalar la CLI de Elastic Beanstalk
-yaml
-Copy Code
-- name: Install EB CLI
-  run: |
-    python -m pip install --upgrade pip
-    pip install awsebcli
-Instala la CLI de Elastic Beanstalk (awsebcli) para interactuar con Elastic Beanstalk desde la línea de comandos.
-10. Crear una aplicación en Elastic Beanstalk
-yaml
-Copy Code
-- name: Create application in AWS EBS
-  run: |
-    eb init -p python-3.9 flask-python --region us-east-1
-    eb create flask-python-env
-Inicializa una aplicación en Elastic Beanstalk llamada flask-python con Python 3.9 como plataforma.
-Crea un entorno llamado flask-python-env.
-11. Desplegar en Elastic Beanstalk
-yaml
-Copy Code
-- name: Deploy to AWS Elasticbeanstalk
-  if: github.ref == 'refs/heads/main' && job.status == 'success'
-  run: |
-    aws elasticbeanstalk create-application-version --application-name flask-python --source-bundle "S3Bucket=app-python-deploy,S3Key=python_package.zip" --version-label v1
-    aws elasticbeanstalk update-environment --environment-name flask-python-env --version-label v1
+9. Instalar la CLI de Elastic Beanstalk para realizar la configuración desde la terminal de comandos
+
+                - name: Install EB CLI
+                run: |
+                    python -m pip install --upgrade pip
+                    pip install awsebcli
+
+
+10. Crear una aplicación en Elastic Beanstalk llamada flask-python con Python 3.9. Y crear el entorno llamado flask-python-env
+
+                - name: Create application in AWS EBS
+                run: |
+                    eb init -p python-3.9 flask-python --region us-east-1
+                    eb create flask-python-env
+
+
+11. Desplegar en Elastic Beanstalk si los demás pasos fueron exitosos. 
+
+
+                - name: Deploy to AWS Elasticbeanstalk
+                if: github.ref == 'refs/heads/main' && job.status == 'success'
+                run: |
+                    aws elasticbeanstalk create-application-version --application-name flask-python --source-bundle "S3Bucket=app-python-deploy,S3Key=python_package.zip" --version-label v1
+                    aws elasticbeanstalk update-environment --environment-name flask-python-env --version-label v1
+
+12. En el repositorio GitHub en la pestaña Actions se puede verificar el flujo de los **steps**
+
+13. Si finalmente el flujo de trabajo realiza los steps de forma exitosa, se puede ir al servicio de AWS ELastic Beanstalk y verificar que se hizo el despliegue. Este servicio suministra un DNS a través del cual se puede acceder a la aplicación web. 

@@ -1,5 +1,6 @@
 # Despliegue de un servidor web en AWS Elastic Beanstalk a través de CI/CD con GitHub Actions
 
+Por: Jhorman Villanueva
 En el presente repositorio se va mostrar cómo automatizar el despliegue de un servidor web hecho en python con el framework flask. Para lograr la automatización se va configurar un pipeline CI/CD con GitHub Actions lo que permite agilizar el proceso de desarrollo, pruebas y despliegue en AWS Elastic Beanstalk que es un servicio PaaS (Plataforma como servicio) que ofrece AWS.  
 
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![AWS](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
